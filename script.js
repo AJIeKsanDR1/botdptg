@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    fetch('https://TgBotSubscribe.vipsahabel6.repl.co/users')  // используем правильный URL
+    fetch('https://95edd8a4-2a2b-4765-b827-c5bd5d614e09-00-33wy3a5bcgmo.sisko.repl.co/users')  // используем правильный URL
         .then(response => response.json())
         .then(data => {
             const container = document.getElementById('tasks-container');
