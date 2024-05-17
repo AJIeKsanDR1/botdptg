@@ -3,12 +3,12 @@ body {
     margin: 0;
     padding: 20px;
     background-color: #333333; /* Темно-серый фон */
-    color: #FFA500; /* Оранжевый текст */
+    color: #fff; /* Оранжевый текст */
 }
 
 h1 {
     text-align: center;
-    color: #FFA500; /* Оранжевый текст */
+    color: #fff; /* Оранжевый текст */
 }
 
 #language-selector {
@@ -21,27 +21,27 @@ h1 {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #FFA500; /* Оранжевый фон кнопок */
+    background-color: #fff; /* Оранжевый фон кнопок */
     color: #333333; /* Темно-серый текст кнопок */
     border: none;
     border-radius: 5px;
 }
 
 #language-selector button:hover {
-    background-color: #ff8c00; /* Более темный оранжевый при наведении */
+    background-color: #fff; /* Более темный оранжевый при наведении */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background-color: #444444; /* Средне-серый фон таблицы */
+    background-color: #fff; /* Средне-серый фон таблицы */
 }
 
 th, td {
-    border: 1px solid #FFA500; /* Оранжевая граница */
+    border: 1px solid #fff; /* Оранжевая граница */
     padding: 8px;
-    color: #FFA500; /* Оранжевый текст */
+    color: #fff; /* Оранжевый текст */
 }
 
 th {
