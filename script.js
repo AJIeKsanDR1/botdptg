@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             const container = document.getElementById('tasks-container');
             data.forEach(user => {
-                const userId = user.user_id;
+                const username = user.username;
                 const tasks = user.tasks;
 
                 const userHeader = document.createElement('h2');
-                userHeader.textContent = `User ID: ${userId}`;
+                userHeader.textContent = `Username: ${username}`;
                 container.appendChild(userHeader);
 
                 const table = document.createElement('table');
