@@ -41,7 +41,7 @@ table {
 th, td {
     border: 1px solid #fff; /* Оранжевая граница */
     padding: 8px;
-    color: black; /* Оранжевый текст */
+    color: #fff; /* Оранжевый текст */
 }
 
 th {
