@@ -35,13 +35,13 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background-color: #fff; /* Средне-серый фон таблицы */
+    background-color: #444444; /* Средне-серый фон таблицы */
 }
 
 th, td {
     border: 1px solid #fff; /* Оранжевая граница */
     padding: 8px;
-    color: #fff; /* Оранжевый текст */
+    color: black; /* Оранжевый текст */
 }
 
 th {
