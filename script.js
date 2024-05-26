@@ -76,7 +76,7 @@ function setLanguage(language) {
 
 function updateTranslations() {
     document.querySelector('h1').textContent = translations[currentLanguage].title;
-    document.getElementById('admin-token').placeholder = translations[currentLanguage].enterAdminToken;
+    document.getElementById('token-label').textContent = translations[currentLanguage].enterAdminToken;
     document.querySelector('button[onclick="login()"]').textContent = translations[currentLanguage].login;
 }
 
