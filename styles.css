@@ -2,13 +2,37 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #333333; /* Темно-серый фон */
-    color: #fff; /* Оранжевый текст */
+    background-color: #333333; /* Dark gray background */
+    color: #fff; /* White text */
 }
 
 h1 {
     text-align: center;
-    color: #fff; /* Оранжевый текст */
+    color: #fff; /* White text */
+}
+
+#login-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#login-container input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+#login-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50; /* Green background */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 5px;
+}
+
+#login-container button:hover {
+    background-color: #45a049; /* Darker green background */
 }
 
 #language-selector {
@@ -21,32 +45,31 @@ h1 {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #fff; /* Оранжевый фон кнопок */
-    color: #333333; /* Темно-серый текст кнопок */
+    background-color: #fff; /* White background */
+    color: #333333; /* Dark gray text */
     border: none;
     border-radius: 5px;
 }
 
 #language-selector button:hover {
-    background-color: #fff; /* Более темный оранжевый при наведении */
+    background-color: #ddd; /* Light gray background */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background-color: #444444; /* Средне-серый фон таблицы */
+    background-color: #444444; /* Medium gray background */
 }
 
 th, td {
-    border: 1px solid #fff; /* Оранжевая граница */
+    border: 1px solid #fff; /* White border */
     padding: 8px;
-    color: #fff; /* Оранжевый текст */
+    color: #fff; /* White text */
 }
 
 th {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #4CAF50; /* Green background */
 }
 
 th, td {
@@ -55,7 +78,7 @@ th, td {
 
 .user-section {
     margin-bottom: 20px;
-    background-color: #444444; /* Средне-серый фон для каждого раздела */
+    background-color: #444444; /* Medium gray background */
     padding: 10px;
     border-radius: 5px;
 }
