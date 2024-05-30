@@ -13,23 +13,44 @@ h1 {
 
 #login-container {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 0 auto;
+    width: 300px;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+}
+
+#login-container .form-group {
+    margin-bottom: 15px;
+}
+
+#login-container label {
+    display: block;
+    margin-bottom: 5px;
+    color: #61dafb;
 }
 
 #login-container input {
+    width: 100%;
     padding: 10px;
     font-size: 16px;
     margin-bottom: 10px;
+    border: 1px solid #61dafb;
+    border-radius: 5px;
+    background-color: #444;
+    color: #61dafb;
 }
 
 #login-container button {
-    padding: 10px 20px;
+    width: 100%;
+    padding: 10px;
     font-size: 16px;
     cursor: pointer;
     background-color: #4CAF50; /* Green background */
     color: #fff; /* White text */
     border: none;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 #login-container button:hover {
