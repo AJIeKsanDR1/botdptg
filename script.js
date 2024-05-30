@@ -2,6 +2,7 @@ const translations = {
     en: {
         title: "Tasks by User",
         username: "Username",
+        password: "Password",
         taskID: "Task ID",
         description: "Description",
         completed: "Completed",
@@ -9,12 +10,14 @@ const translations = {
         no: "No",
         enterAdminToken: "Enter admin username and password",
         login: "Login",
+        rememberMe: "Remember me",
         invalidToken: "Invalid username or password",
         noTasksFound: "No tasks found.",
     },
     ru: {
         title: "Задачи по пользователю",
         username: "Имя пользователя",
+        password: "Пароль",
         taskID: "ID задачи",
         description: "Описание",
         completed: "Завершено",
@@ -22,12 +25,13 @@ const translations = {
         no: "Нет",
         enterAdminToken: "Введите имя пользователя и пароль администратора",
         login: "Войти",
+        rememberMe: "Запомнить меня",
         invalidToken: "Неверное имя пользователя или пароль",
         noTasksFound: "Задачи не найдены.",
     }
 };
 
-let currentLanguage = 'en';
+let currentLanguage = 'ru';
 let adminUsername = '';
 let adminPassword = '';
 
@@ -51,30 +55,19 @@ function login() {
 }
 
 function verifyToken(username, password, rememberMe) {
-    fetch('https://95edd8a4-2a2b-4765-b827-c5bd5d614e09-00-33wy3a5bcgmo.sisko.repl.co/verify_token', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username: username, password: password })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.valid) {
-            adminUsername = username;
-            adminPassword = password;
-            if (rememberMe) {
-                localStorage.setItem('adminUsername', username);
-                localStorage.setItem('adminPassword', password);
-            }
-            document.getElementById('login-container').style.display = 'none';
-            document.getElementById('language-selector').style.display = 'block';
-            fetchTasks();
-        } else {
-            alert(translations[currentLanguage].invalidToken);
+    if (username === 'admin' && password === 'sb3245!!GF') {
+        if (rememberMe) {
+            localStorage.setItem('adminUsername', username);
+            localStorage.setItem('adminPassword', password);
         }
-    })
-    .catch(error => console.error('Error verifying token:', error));
+        adminUsername = username;
+        adminPassword = password;
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('language-selector').style.display = 'block';
+        fetchTasks();
+    } else {
+        alert(translations[currentLanguage].invalidToken);
+    }
 }
 
 function setLanguage(language) {
@@ -84,10 +77,13 @@ function setLanguage(language) {
 }
 
 function updateTranslations() {
-    document.querySelector('h1').textContent = translations[currentLanguage].title;
-    document.getElementById('username-label').textContent = translations[currentLanguage].enterAdminToken.split(' ')[0] + ':';
-    document.getElementById('password-label').textContent = translations[currentLanguage].enterAdminToken.split(' ')[3] + ':';
-    document.querySelector('button[onclick="login()"]').textContent = translations[currentLanguage].login;
+    document.getElementById('title').textContent = translations[currentLanguage].title;
+    document.getElementById('username-label').textContent = translations[currentLanguage].username;
+    document.getElementById('password-label').textContent = translations[currentLanguage].password;
+    document.getElementById('admin-username').placeholder = translations[currentLanguage].username;
+    document.getElementById('admin-password').placeholder = translations[currentLanguage].password;
+    document.getElementById('login-button').textContent = translations[currentLanguage].login;
+    document.getElementById('remember-me-label').textContent = translations[currentLanguage].rememberMe;
 }
 
 function fetchTasks() {
