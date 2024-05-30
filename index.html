@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,14 +8,15 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <h1 id="page-title">Задачи по пользователю</h1>
+    <h1 id="title"></h1>
     <div id="login-container">
-        <label for="admin-username" id="username-label">Введите имя пользователя:</label>
-        <input type="text" id="admin-username" placeholder="Имя пользователя">
-        <label for="admin-password" id="password-label">Введите пароль:</label>
-        <input type="password" id="admin-password" placeholder="Пароль">
-        <button onclick="login()">Войти</button>
-        <label><input type="checkbox" id="remember-me"> Запомнить меня</label>
+        <label for="admin-username" id="username-label"></label>
+        <input type="text" id="admin-username" placeholder="">
+        <label for="admin-password" id="password-label"></label>
+        <input type="password" id="admin-password" placeholder="">
+        <button onclick="login()" id="login-button"></button>
+        <label for="remember-me" id="remember-me-label"></label>
+        <input type="checkbox" id="remember-me">
     </div>
     <div id="language-selector" style="display: none;">
         <button onclick="setLanguage('en')">English</button>
