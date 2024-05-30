@@ -10,9 +10,12 @@
 <body>
     <h1>Tasks by User</h1>
     <div id="login-container">
-        <label for="admin-token" id="token-label">Enter admin token:</label>
-        <input type="text" id="admin-token">
+        <label for="admin-username" id="username-label">Enter admin username:</label>
+        <input type="text" id="admin-username">
+        <label for="admin-password" id="password-label">Enter admin password:</label>
+        <input type="password" id="admin-password">
         <button onclick="login()">Login</button>
+        <label><input type="checkbox" id="remember-me"> Remember me</label>
     </div>
     <div id="language-selector" style="display: none;">
         <button onclick="setLanguage('en')">English</button>
