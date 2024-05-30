@@ -7,9 +7,9 @@ const translations = {
         completed: "Completed",
         yes: "Yes",
         no: "No",
-        enterAdminToken: "Enter admin token",
+        enterAdminToken: "Enter admin username and password",
         login: "Login",
-        invalidToken: "Invalid token",
+        invalidToken: "Invalid username or password",
         noTasksFound: "No tasks found.",
     },
     ru: {
@@ -20,44 +20,53 @@ const translations = {
         completed: "Завершено",
         yes: "Да",
         no: "Нет",
-        enterAdminToken: "Введите токен администратора",
+        enterAdminToken: "Введите имя пользователя и пароль администратора",
         login: "Войти",
-        invalidToken: "Неверный токен",
+        invalidToken: "Неверное имя пользователя или пароль",
         noTasksFound: "Задачи не найдены.",
     }
 };
 
 let currentLanguage = 'en';
-let adminToken = '';
+let adminUsername = '';
+let adminPassword = '';
 
 document.addEventListener("DOMContentLoaded", function() {
-    const storedToken = localStorage.getItem('adminToken');
-    if (storedToken) {
-        adminToken = storedToken;
-        verifyToken(adminToken);
+    const storedUsername = localStorage.getItem('adminUsername');
+    const storedPassword = localStorage.getItem('adminPassword');
+    if (storedUsername && storedPassword) {
+        adminUsername = storedUsername;
+        adminPassword = storedPassword;
+        verifyToken(adminUsername, adminPassword);
     } else {
         updateTranslations();
     }
 });
 
 function login() {
-    const token = document.getElementById('admin-token').value;
-    verifyToken(token);
+    const username = document.getElementById('admin-username').value;
+    const password = document.getElementById('admin-password').value;
+    const rememberMe = document.getElementById('remember-me').checked;
+    verifyToken(username, password, rememberMe);
 }
 
-function verifyToken(token) {
-    fetch('https://95edd8a4-2a2b-4765-b827-c5bd5d614e09-00-33wy3a5bcgmo.sisko.repl.co/verify_token', {
+function verifyToken(username, password, rememberMe) {
+    fetch('https://example.com/verify_token', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ token: token })
+        body: JSON.stringify({ username: username, password: password })
     })
     .then(response => response.json())
     .then(data => {
         if (data.valid) {
-            adminToken = token;
-            localStorage.setItem('adminToken', token);
+            adminUsername = username;
+            adminPassword = password;
+            if (rememberMe) {
+                localStorage.setItem('adminUsername', username);
+                localStorage.setItem('adminPassword', password);
+            }
             document.getElementById('login-container').style.display = 'none';
             document.getElementById('language-selector').style.display = 'block';
             fetchTasks();
@@ -76,14 +85,15 @@ function setLanguage(language) {
 
 function updateTranslations() {
     document.querySelector('h1').textContent = translations[currentLanguage].title;
-    document.getElementById('token-label').textContent = translations[currentLanguage].enterAdminToken;
+    document.getElementById('username-label').textContent = translations[currentLanguage].enterAdminToken.split(' ')[0] + ':';
+    document.getElementById('password-label').textContent = translations[currentLanguage].enterAdminToken.split(' ')[3] + ':';
     document.querySelector('button[onclick="login()"]').textContent = translations[currentLanguage].login;
 }
 
 function fetchTasks() {
-    fetch('https://95edd8a4-2a2b-4765-b827-c5bd5d614e09-00-33wy3a5bcgmo.sisko.repl.co/users', {
+    fetch('https://example.com/users', {
         headers: {
-            'Authorization': `Bearer ${adminToken}`
+            'Authorization': `Bearer ${adminUsername}:${adminPassword}`
         }
     })
     .then(response => response.json())
