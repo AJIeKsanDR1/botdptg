@@ -28,6 +28,9 @@
         <button onclick="setLanguage('en')">English</button>
         <button onclick="setLanguage('ru')">Русский</button>
     </div>
+    <div id="search-container" style="display: none;">
+        <input type="text" id="search-input" placeholder="Поиск задач" oninput="searchTasks()">
+    </div>
     <div id="tasks-container"></div>
 </body>
 </html>
