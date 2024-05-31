@@ -5,6 +5,8 @@ const translations = {
         password: "Password",
         taskID: "Task ID",
         description: "Description",
+        category: "Category",
+        priority: "Priority",
         completed: "Completed",
         yes: "Yes",
         no: "No",
@@ -13,6 +15,18 @@ const translations = {
         rememberMe: "Remember me",
         invalidToken: "Invalid username or password",
         noTasksFound: "No tasks found.",
+        searchPlaceholder: "Search tasks...",
+        categories: {
+            work: "Work",
+            personal: "Personal",
+            others: "Others",
+            urgent: "Urgent"
+        },
+        priorities: {
+            high: "High",
+            medium: "Medium",
+            low: "Low"
+        }
     },
     ru: {
         title: "Задачи по пользователю",
@@ -20,6 +34,8 @@ const translations = {
         password: "Пароль",
         taskID: "ID задачи",
         description: "Описание",
+        category: "Категория",
+        priority: "Приоритет",
         completed: "Завершено",
         yes: "Да",
         no: "Нет",
@@ -28,12 +44,25 @@ const translations = {
         rememberMe: "Запомнить меня",
         invalidToken: "Неверное имя пользователя или пароль",
         noTasksFound: "Задачи не найдены.",
+        searchPlaceholder: "Поиск задач...",
+        categories: {
+            work: "Работа",
+            personal: "Личное",
+            others: "Разное",
+            urgent: "Срочное"
+        },
+        priorities: {
+            high: "Высокий",
+            medium: "Средний",
+            low: "Низкий"
+        }
     }
 };
 
 let currentLanguage = 'ru';
 let adminUsername = '';
 let adminPassword = '';
+let allTasks = [];
 
 document.addEventListener("DOMContentLoaded", function() {
     const storedUsername = localStorage.getItem('adminUsername');
@@ -64,6 +93,7 @@ function verifyToken(username, password, rememberMe) {
         adminPassword = password;
         document.getElementById('login-container').style.display = 'none';
         document.getElementById('language-selector').style.display = 'block';
+        document.getElementById('search-container').style.display = 'block';
         fetchTasks();
     } else {
         alert(translations[currentLanguage].invalidToken);
@@ -84,6 +114,15 @@ function updateTranslations() {
     document.getElementById('admin-password').placeholder = translations[currentLanguage].password;
     document.getElementById('login-button').textContent = translations[currentLanguage].login;
     document.getElementById('remember-me-label').textContent = translations[currentLanguage].rememberMe;
+    document.getElementById('search-input').placeholder = translations[currentLanguage].searchPlaceholder;
+}
+
+function translateCategory(category) {
+    return translations[currentLanguage].categories[category.toLowerCase()] || category;
+}
+
+function translatePriority(priority) {
+    return translations[currentLanguage].priorities[priority.toLowerCase()] || priority;
 }
 
 function fetchTasks() {
@@ -94,48 +133,67 @@ function fetchTasks() {
     })
     .then(response => response.json())
     .then(data => {
-        const container = document.getElementById('tasks-container');
-        container.innerHTML = '';
-
-        if (data.length === 0) {
-            container.textContent = translations[currentLanguage].noTasksFound;
-            return;
-        }
-
-        data.forEach(user => {
-            const username = user.username;
-            const tasks = user.tasks;
-
-            const userHeader = document.createElement('h2');
-            userHeader.textContent = `${translations[currentLanguage].username}: ${username}`;
-            container.appendChild(userHeader);
-
-            const table = document.createElement('table');
-            const thead = document.createElement('thead');
-            const tbody = document.createElement('tbody');
-
-            thead.innerHTML = `
-                <tr>
-                    <th>${translations[currentLanguage].taskID}</th>
-                    <th>${translations[currentLanguage].description}</th>
-                    <th>${translations[currentLanguage].completed}</th>
-                </tr>
-            `;
-
-            tasks.forEach(task => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${task.id}</td>
-                    <td>${task.description}</td>
-                    <td>${task.completed ? translations[currentLanguage].yes : translations[currentLanguage].no}</td>
-                `;
-                tbody.appendChild(row);
-            });
-
-            table.appendChild(thead);
-            table.appendChild(tbody);
-            container.appendChild(table);
-        });
+        allTasks = data;
+        displayTasks(data);
     })
     .catch(error => console.error('Error fetching tasks:', error));
+}
+
+function displayTasks(data) {
+    const container = document.getElementById('tasks-container');
+    container.innerHTML = '';
+
+    if (data.length === 0) {
+        container.textContent = translations[currentLanguage].noTasksFound;
+        return;
+    }
+
+    data.forEach(user => {
+        const username = user.username;
+        const tasks = user.tasks;
+
+        const userHeader = document.createElement('h2');
+        userHeader.textContent = `${translations[currentLanguage].username}: ${username}`;
+        container.appendChild(userHeader);
+
+        const table = document.createElement('table');
+        const thead = document.createElement('thead');
+        const tbody = document.createElement('tbody');
+
+        thead.innerHTML = `
+            <tr>
+                <th>${translations[currentLanguage].taskID}</th>
+                <th>${translations[currentLanguage].description}</th>
+                <th>${translations[currentLanguage].category}</th>
+                <th>${translations[currentLanguage].priority}</th>
+                <th>${translations[currentLanguage].completed}</th>
+            </tr>
+        `;
+
+        tasks.forEach(task => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${task.id}</td>
+                <td>${task.description}</td>
+                <td>${translateCategory(task.category)}</td>
+                <td>${translatePriority(task.priority)}</td>
+                <td>${task.completed ? translations[currentLanguage].yes : translations[currentLanguage].no}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        container.appendChild(table);
+    });
+}
+
+function searchTasks() {
+    const query = document.getElementById('search-input').value.toLowerCase();
+    const filteredTasks = allTasks.map(user => ({
+        ...user,
+        tasks: user.tasks.filter(task => task.description.toLowerCase().includes(query))
+    })).filter(user => user.tasks.length > 0);
+
+    displayTasks(filteredTasks);
 }
