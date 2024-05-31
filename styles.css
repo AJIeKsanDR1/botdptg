@@ -58,9 +58,6 @@ h1 {
     margin-right: 10px;
 }
 
-#login-container .remember-me-group label {
-}
-
 #login-container button {
     width: calc(100% - 20px);
     padding: 10px;
@@ -97,6 +94,20 @@ h1 {
     background-color: #ddd; /* Light gray background */
 }
 
+#search-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+#search-container input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #61dafb;
+    border-radius: 5px;
+    background-color: #444;
+    color: #61dafb;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -112,10 +123,6 @@ th, td {
 
 th {
     background-color: #333; /* Darker gray background */
-}
-
-th, td {
-    text-align: left;
 }
 
 .user-section {
