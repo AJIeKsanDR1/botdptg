@@ -84,7 +84,7 @@ function login() {
 }
 
 function verifyToken(username, password, rememberMe) {
-    if (username === 'admin' && password === 'sb3245!!GF') {
+    if (username === 'admin' && password === 'admin') {
         if (rememberMe) {
             localStorage.setItem('adminUsername', username);
             localStorage.setItem('adminPassword', password);
